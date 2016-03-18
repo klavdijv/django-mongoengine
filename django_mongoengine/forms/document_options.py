@@ -208,6 +208,9 @@ class DocumentMetaWrapper(object):
         return self.get_field_by_name(name)[0]
 
     def __getattr__(self, name):
+        if hasattr(self._meta, name):
+            return getattr(self._meta, name)
+        
         try:
             return self._meta[name]
         except KeyError as e:
